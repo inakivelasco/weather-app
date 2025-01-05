@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mysql:lts
+    environment:
+      MYSQL_DATABASE: notes_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    # volumes:
+  app:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      FLASK_ENV: development
+    # volumes:

@@ -11,3 +11,4 @@ CREATE TABLE notes (
 INSERT INTO notes (title, content) VALUES ('Note 1', 'Content of note 1');
 INSERT INTO notes (title, content) VALUES ('Note 2', 'Content of note 2');
 INSERT INTO notes (title, content) VALUES ('Note 3', 'Content of note 3');
+-- TODO usar este init.sql
