@@ -16,10 +16,10 @@ def hello_world():
     connection = get_db_connection()
     cursor =  connection.cursor()
 
-    cursor.execute("SELECT 'Hello, World!'")
-    result = cursor.fetchone()
+    cursor.execute("SELECT * FROM notes")
+    result = cursor.fetchall()
     connection.close()
-    return str(result[0])
+    return str(result)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
