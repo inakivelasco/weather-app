@@ -1,6 +1,6 @@
 FROM python:3.12-slim
-WORKDIR /app
-COPY app/requirements.txt .
+WORKDIR /web
+COPY web/requirements.txt .
 RUN pip install -r requirements.txt
-COPY app/ .
+COPY web/ .
 CMD ["python", "app.py"]
