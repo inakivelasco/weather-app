@@ -1,13 +1,12 @@
-CREATE DATABASE IF NOT EXISTS notes_db;
-use notes_db;
+CREATE DATABASE IF NOT EXISTS weather_db;
+use weather_db;
 
-CREATE TABLE notes (
-    id INT AUTO_INCREMENT UNIQUE,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+create table weather (
+    id int auto_increment primary key,
+    title varchar(255) not null,
+    content text not null
 );
 
-INSERT INTO notes (title, content) VALUES ('Note 1', 'Content of note 1');
-INSERT INTO notes (title, content) VALUES ('Note 2', 'Content of note 2');
-INSERT INTO notes (title, content) VALUES ('Note 3', 'Content of note 3');
+INSERT INTO weather (title, content) VALUES ('Day 1', 'Sunny');
+INSERT INTO weather (title, content) VALUES ('Day 2', 'Sunny');
+INSERT INTO weather (title, content) VALUES ('Day 3', 'Windy');
