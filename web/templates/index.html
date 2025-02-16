@@ -2,13 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Página Principal</title>
+    <title>Homepage</title>
 </head>
 <body>
-    <h1>Bienvenido a la Aplicación</h1>
-    <p>Aplicación del tiempo meteorológico.</p>
+    <h1>Welcome to the app!</h1>
+    <p>Weather app</p>
+
+    {{ plot_html|safe }}
+
+    <br><br><br><br><br>
+
     <a href="{{ url_for('legal_note') }}">
-        <button type="button">Ver Nota Legal</button>
+        <button type="button">View legal note</button>
     </a>
 </body>
 </html>
