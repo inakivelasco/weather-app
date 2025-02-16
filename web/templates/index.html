@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Welcome to the app!</h1>
-    <p>Weather app</p>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('legal_note') }}">Legal Note</a>
+    </div>
 
-    {{ plot_html|safe }}
+    <div class="wrapper">
+        <div class="container">
+            <h1>Welcome to the app!</h1>
 
-    <br><br><br><br><br>
+            <div class="plot-container">
+                {{ plot_html|safe }}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ url_for('legal_note') }}">
-        <button type="button">View legal note</button>
-    </a>
+    <div class="footer">
+        <p>&copy;Weather App. All rights reserved.</p>
+    </div>
 </body>
 </html>

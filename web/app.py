@@ -34,7 +34,7 @@ def get_temperatures():
         for day in response.json()[0]['prediccion']['dia']:    
             for temperature in day['temperatura']:
                 dates.append(datetime.strptime(day['fecha'], "%Y-%m-%dT%H:%M:%S") + timedelta(hours=int(temperature['periodo'])))
-                temperatures.append(temperature['value'])
+                temperatures.append(int(temperature['value']))
         
         return temperatures, dates
     return [None], [None]
@@ -51,7 +51,11 @@ def plot_temperature():
         y=temperatures, 
         labels={'x': '', 'y': 'Temperature (°C)'}
     )
-    fig.update_layout(xaxis_tickangle=-45)
+    fig.update_layout(
+        yaxis_title="Temperature (°C)",
+        xaxis=dict(tickangle=-45),
+        hovermode="x unified"
+    )
     
     return fig.to_html(full_html=False)
 
