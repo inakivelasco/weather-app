@@ -23,7 +23,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     margin-top: 40px;
 }
@@ -34,6 +34,12 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-weight: 700;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 2rem;
     font-weight: 700;
 }
 
@@ -57,6 +63,7 @@ button {
     font-size: 1rem;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 200px;
 }
 
 button:hover {
@@ -66,6 +73,11 @@ button:hover {
 
 button:active {
     transform: translateY(0);
+}
+
+button:focus {
+    outline: 2px solid #2980b9;
+    outline-offset: 2px;
 }
 
 /* Plot container */
@@ -78,10 +90,30 @@ button:active {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Analysis map */
+.analysis-map {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Link styles */
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.legal-note a {
+    color: #3498db;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.legal-note a:hover {
+    color: #2980b9;
 }
 
 /* Legal note page styles */
@@ -98,16 +130,6 @@ a {
     font-size: 1.1rem;
     color: #555;
     margin-bottom: 20px;
-}
-
-.legal-note a {
-    color: #3498db;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-}
-
-.legal-note a:hover {
-    color: #2980b9;
 }
 
 /* Navigation bar */
@@ -129,6 +151,7 @@ a {
 
 .navbar a:hover {
     color: #3498db;
+    text-decoration: underline;
 }
 
 /* Footer styles */
@@ -148,4 +171,165 @@ a {
 .footer p {
     margin: 0;
     padding: 10px 0;
+}
+
+/* Feedback container */
+.feedback-container {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.feedback-container h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.feedback-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+#star-rating input {
+    display: none; /* Hide radio inputs */
+}
+
+.star-rating {
+    color: gold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+#star-rating label {
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Highlight stars when hovered */
+#star-rating label:hover,
+#star-rating label:hover ~ label {
+    color: gold;
+}
+
+/* Keep stars highlighted when selected */
+#star-rating input:checked ~ label {
+    color: gold;
+}
+
+textarea {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+button {
+    width: 200px;
+}
+
+.feedback-item {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-box {
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #ccc;    /* Border around each box */
+    padding: 15px;              /* Padding inside the box */
+    border-radius: 8px;         /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.feedback-box p {
+    margin: 5px 0;
+}
+
+.timestamp {
+    font-size: 0.85em;
+    color: #888;
+}
+
+/* Loading Spinner (Optional) */
+.loading {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .feedback-container form {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .navbar a {
+        margin: 0 10px;
+        font-size: 1rem;
+    }
+
+    .footer {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p, .legal-note p {
+        font-size: 1rem;
+    }
 }

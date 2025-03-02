@@ -2,26 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Legal note</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App: Legal Note</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="navbar">
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('legal_note') }}">Legal Note</a>
-    </div>
+    <header class="navbar">
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('legal_note') }}">Legal Note</a>
+        </nav>
+    </header>
 
-    <div class="wrapper">
-        <div class="container legal-note">
-            <h1>Legal note</h1>
+    <main class="wrapper">
+        <section class="container legal-note">
+            <h1>Legal Note</h1>
             <p>This application uses weather data provided by the Agencia Estatal de Meteorología (AEMET).</p>
             <p>For more information, visit <a href="https://www.aemet.es/es/nota_legal" target="_blank">AEMET legal note</a>.</p>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <div class="footer">
-        <p>&copy;Weather App. All rights reserved.</p>
-    </div>
+    <footer class="footer">
+        <p>&copy; Weather App. All rights reserved.</p>
+    </footer>
 </body>
 </html>

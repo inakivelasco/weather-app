@@ -2,28 +2,145 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App: Homepage</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="navbar">
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('legal_note') }}">Legal Note</a>
-    </div>
+    <header class="navbar">
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('legal_note') }}">Legal Note</a>
+        </nav>
+    </header>
 
-    <div class="wrapper">
-        <div class="container">
-            <h1>Welcome to the app!</h1>
+    <main class="wrapper">
+        <section class="container">
+            <h1>Welcome to the App!</h1>
 
             <div class="plot-container">
                 {{ plot_html|safe }}
             </div>
-        </div>
-    </div>
 
-    <div class="footer">
-        <p>&copy;Weather App. All rights reserved.</p>
-    </div>
+            {% if analysis_map %}
+            <div class="plot-container">
+                <h2>Analysis Map</h2>
+                <img src="data:image/png;base64,{{ analysis_map }}" alt="Analysis Map" class="analysis-map">
+            </div>
+            {% else %}
+            <p>Error fetching analysis map.</p>
+            {% endif %}
+
+            <section class="feedback-container">
+                <h2>Your Feedback</h2>
+                <form id="feedback-form">
+                    <fieldset id="star-rating">
+                        <legend>Rate the App</legend>
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5">★</label>
+                        
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4">★</label>
+                        
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3">★</label>
+                        
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2">★</label>
+                        
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1">★</label>
+                    </fieldset>
+                    
+                    <label for="comment">Your Comment:</label>
+                    <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Enter your comment here"></textarea>
+                    
+                    <button type="submit" aria-label="Submit Feedback">Submit Feedback</button>
+                </form>
+
+                <div id="feedback-messages">
+                    {% for fb in feedbacks %}
+                    <div class="feedback-item">
+                        <div class="feedback-box">
+                            <p>
+                                <strong>Rating:</strong>
+                                <span class="star-rating">
+                                    {% for _ in range(fb.rating|int) %}
+                                        ★
+                                    {% endfor %}
+                                </span>
+                            </p>
+                            <p>{{ fb.comment }}</p>
+                            <p class="timestamp">{{ fb.timestamp }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; Weather App. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('feedback-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(this);
+        const rating = formData.get('rating');
+        const comment = formData.get('comment');
+
+        if (!rating) {
+            alert('Please provide a rating!');
+            return;
+        }
+
+        const response = await fetch('{{ url_for("submit_feedback") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ rating, comment })
+        });
+
+        if (response.ok) {
+            const newFeedback = await response.json();
+
+            const feedbackDiv = document.getElementById('feedback-messages');
+            const feedbackItem = document.createElement('div');
+            feedbackItem.className = 'feedback-item';
+            
+            feedbackItem.innerHTML = `<div class="feedback-box">
+                                            <p>
+                                                <strong>Rating:</strong> 
+                                                <span class="star-rating" data-rating="${newFeedback.rating}">
+                                                    ${'★'.repeat(newFeedback.rating)}
+                                                </span>
+                                            </p>
+                                            <p>${newFeedback.comment}</p>
+                                            <p class="timestamp">${newFeedback.timestamp}</p>
+                                        </div>`;
+
+            feedbackDiv.prepend(feedbackItem);
+
+            applyStarRating(feedbackItem);
+
+            document.getElementById('feedback-form').reset();
+        } else {
+            alert('Error submitting feedback');
+        }
+    });
+
+    function applyStarRating(feedbackItem) {
+        const starRating = feedbackItem.querySelector('.star-rating');
+        const rating = starRating ? parseInt(starRating.dataset.rating) : 0;
+
+        starRating.innerHTML = '★'.repeat(rating);
+        starRating.style.color = 'gold';
+    }
+    </script>
 </body>
 </html>
